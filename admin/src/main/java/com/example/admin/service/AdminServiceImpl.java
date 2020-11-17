@@ -1,10 +1,12 @@
 package com.example.admin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.admin.model.AdminModel;
 import com.example.admin.repository.AdminRepository;
 
+@Service
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
