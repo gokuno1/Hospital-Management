@@ -1,0 +1,25 @@
+pipeline{
+	agent any{
+	
+	stages{
+		
+		stage('build'){
+			
+			steps{
+				sh 'mvn package'
+			
+				}
+		
+			}
+		stage('Image Creation'){
+			
+			steps{
+				sh 'cd/UserService;docker build -t user-service .'
+			
+				}
+		
+			}
+	
+		}
+	}
+}
