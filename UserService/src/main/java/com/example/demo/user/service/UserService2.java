@@ -1,14 +1,14 @@
 package com.example.demo.user.service;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.model.UserLoginResponse;
 import com.example.demo.user.model.UserProfile;
+import com.example.demo.user.modelVo.AppointmentModelVo;
 
-
-public interface UserService {
-
+public interface UserService2 {
+	
 	public UserInfo addNewUser(UserInfo userinfo);
 
 	public UserLoginResponse login(UserInfo userinfo/* ,HttpServletRequest request, HttpServletResponse response */);
@@ -23,15 +23,6 @@ public interface UserService {
 	
 	public UserInfo updateUserbyMobile(double mobileNo, UserInfo user);
 	
-	public UserInfo deleteUser(String email);
-	
-	public ResponseEntity<UserInfo> forgotPassword(UserLoginResponse userCredentials);
-	
-//	public List<UserProfile> updateProfileDetails(String emailId, String fName, String lName, double mobileNo, int userId);
-	
-	public void scheduledUpdate();
-	
-	
-	
-	//Can add OTP methods
+	public List<AppointmentModelVo> getCurrentAppointments(String emailId, String mobileNo);
+
 }

@@ -19,6 +19,7 @@ public class UserInfo {
 	private double mobile_no;
 	private String password;
 	private String birthDate;
+	private String address;
 	private int age;
 	
 	public UserInfo() {
@@ -89,6 +90,14 @@ public class UserInfo {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

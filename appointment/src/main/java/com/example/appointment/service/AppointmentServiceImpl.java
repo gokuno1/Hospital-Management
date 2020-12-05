@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,6 @@ public class AppointmentServiceImpl implements AppointmentService{
 		details.setAppointmentDate(bookingDetails.getAppointmentDate());
 		details.setDoctorName(bookingDetails.getDoctorName());
 		details.setPatientName(user.getFirst_Name()+" "+user.getLast_Name());
-		details.setPatientAge(user.getAge());
 		details.setPatientBirthDate(user.getBirthDate());
 		details.setPatientEmail(bookingDetails.getPatientEmail());
 		details.setStatus("PENDING");
@@ -81,6 +81,29 @@ public class AppointmentServiceImpl implements AppointmentService{
 		AppointmentModel accept = appointmentRepository.findByDoctorName(doctorName);
 		allAppointments.add(accept);
 		return allAppointments;
+	}
+
+	@Override
+	public List<AppointmentModel> getAppointmentsByPatient(String email, String mobile) {
+		// TODO Auto-generated method stub
+		List<AppointmentModel> appointment = new ArrayList<>();
+		if(email==null && mobile!=null)
+		{
+			 appointment = appointmentRepository.findByPatientMobile(mobile);
+			 return appointment;
+		}
+		
+		else if(mobile==null && email!=null)
+		{
+			 appointment = appointmentRepository.findByPatientEmail(email);
+			 return appointment;
+		}
+		
+		else
+		{
+			return null;
+		}
+		
 	}
 	
 	

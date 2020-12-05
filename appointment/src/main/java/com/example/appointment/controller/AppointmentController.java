@@ -48,4 +48,11 @@ public class AppointmentController {
 		List<AppointmentModel> list = appointmentService.getAllAppointmentsByDoctorName(doctorName);
 		return list;
 	}
+	
+	@GetMapping(value = "/getAllAppointmentBypatient")
+	public List<AppointmentModel> getAllAppointmentBypatient(@RequestHeader String patientEmail, @RequestHeader String mobile)
+	{
+		List<AppointmentModel> list = appointmentService.getAppointmentsByPatient(patientEmail, mobile);
+		return list;
+	}
 }
