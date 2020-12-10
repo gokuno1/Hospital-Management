@@ -5,6 +5,12 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
+   
   jpa:
    hibernate:
     ddl-auto: update
