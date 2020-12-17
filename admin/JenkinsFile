@@ -19,7 +19,7 @@ pipeline
 		{
 			steps
 			{
-				sudo docker build -t myFirstProject . 
+				echo 'sudo docker build -t myFirstProject ' 
 			}
 		}
 		stage('Run Image')
