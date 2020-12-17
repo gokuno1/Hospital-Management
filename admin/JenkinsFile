@@ -1,0 +1,33 @@
+pipeline
+{
+	agent any
+	
+	triggers 
+	{
+	}
+	
+	stages
+	{
+		stage('Build')
+		{
+			steps
+			{
+				sh 'mvn clean package'
+			}
+		}
+		stage('Build Docker Image')
+		{
+			steps
+			{
+				sudo docker build -t myFirstProject . 
+			}
+		}
+		stage('Run Image')
+		{
+			steps
+			{
+				echo 'Running Docker Image created above'
+			}
+		}
+	}
+}
