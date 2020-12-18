@@ -8,7 +8,7 @@ spring:
   session:
     store-type: jdbc
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
       schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
    
   jpa:

@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +27,10 @@ public class UserController {
 	UserServiceImpl service;
 	
 	@PostMapping(value="/authenticateUser")
-	public ResponseEntity<UserLoginResponse> authenticateUser(@RequestBody UserInfo user/* , HttpServletRequest request, HttpServletResponse response */)
+	public ResponseEntity<UserLoginResponse> authenticateUser(@RequestBody UserInfo user, HttpServletRequest request, HttpServletResponse response)
 	{
 		ResponseEntity<UserLoginResponse> resp = null;
-		UserLoginResponse res = service.authenticateUser(user/* , request, response */);
+		UserLoginResponse res = service.authenticateUser(user, request, response);
 		//return res;
 		
 		  if(res!=null)

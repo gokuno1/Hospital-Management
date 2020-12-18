@@ -7,16 +7,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.user.model.UserDTO;
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.model.UserLoginResponse;
 import com.example.demo.user.model.UserProfile;
 import com.example.demo.user.model.UserScheduler;
+import com.example.demo.user.model.dto.UserInfoDetails;
 import com.example.demo.user.repository.SchedulerCOunt;
 import com.example.demo.user.repository.UserProfileRepository;
 import com.example.demo.user.repository.UserRepository;
@@ -25,6 +34,9 @@ import com.example.demo.utils.BasicEncryption;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	FindByIndexNameSessionRepository<? extends Session> sessions;
+	
 	@Autowired
 	private BasicEncryption encrypt;
 	
@@ -71,16 +83,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserLoginResponse authenticateUser(
-			UserInfo userinfo/* , HttpServletRequest request, HttpServletResponse response */) {
+	public UserLoginResponse authenticateUser(UserInfo userinfo, HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		boolean validateUser = false;
 		System.out.println(userinfo);
 		UserLoginResponse userResponse = new UserLoginResponse();
 		UserInfo user= repository.findByEmail(userinfo.getEmail_id());
 		System.out.println(user);
 		if(userinfo.getEmail_id().equals(user.getEmail_id()) && userinfo.getPassword().equals(encrypt.decryptCipherText(user.getPassword())))
 		{
-			String session="12348575";
+			String session = request.getSession().getId();
+			List<GrantedAuthority> sessionAuthority = new ArrayList<>();
+			sessionAuthority.add(new SimpleGrantedAuthority("Patient"));
+			UserInfoDetails userdetails = new UserInfoDetails(new UserDTO(userinfo.getEmail_id()), sessionAuthority);
+			Collection<? extends Session> userSession = this.sessions.findByPrincipalName(userdetails.getUsername()).values();
+			if(!userSession.isEmpty())
+			{
+				userSession.forEach(userSessions -> {
+					this.sessions.deleteById(userSessions.getId());
+				});
+				
+			}
 			userResponse.setEmail(userinfo.getEmail_id());
 			userResponse.setName(userinfo.getFirst_Name());
 			userResponse.setSessionId(session);
