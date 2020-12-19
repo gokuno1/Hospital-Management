@@ -8,7 +8,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'mvn -f admin/pom.xml clean package'
+				bat 'mvn -f admin/pom.xml clean package'
 			}
 		}
 		stage('Build Docker Image')
