@@ -15,7 +15,7 @@ pipeline
 		{
 			steps
 			{
-				echo 'sudo docker build -t myFirstProject ' 
+				bat 'docker build -t myFirstProject .' 
 			}
 		}
 		stage('Run Image')
