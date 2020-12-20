@@ -13,17 +13,13 @@ pipeline
 		}
 		stage('Build Docker Image')
 		{
-			steps
-			{
-				bat 'docker build -t myFirstProject .' 
-			}
+			app = docker.build(gokuno1/Doctor-Appointment/admin)
 		}
-		stage('Run Image')
+		stage('Push Image')
 		{
-			steps
-			{
-				echo 'Running Docker Image created above'
-			}
+			docker.withRegistry('https://registry.hub.docker.com', 'aniketbidgar2212') {
+            		app.push("${env.BUILD_NUMBER}")
+            		app.push("latest")
 		}
 	}
 }
