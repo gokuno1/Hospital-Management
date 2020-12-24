@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: user-service
+  datasource:      url: jdbc:mysql://localhost:3306/appointment_patient
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+      schema: classpath:org/springframework/session/jdbc/schema-@@platform@@.sql
+   
+  jpa:
+   hibernate:
+    ddl-auto: update
+   show-sql: true
+   database-platform: org.hibernate.dialect.MySQL5Dialect   
+server:
+  port: 8600
+  error:
+    whitelabel:
+      enabled: false
+  
+  
