@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class UserInfo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "PATIENT_ID")
+	@Column(name = "USER_ID")
 	private int patientId;
 	
 	@Column(name = "PATIENT_NAME")
@@ -51,6 +52,9 @@ public class UserInfo {
 	@Column(name = "TYPE")
 	private String userType;
 
+	@OneToOne(mappedBy = "doctorId")
+	private Department userId;
+	
 	public int getPatientId() {
 		return patientId;
 	}
