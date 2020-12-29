@@ -1,0 +1,29 @@
+pipeline
+{
+	agent any
+	
+	stages
+	{
+		stage('Build')
+		{
+			steps
+			{
+				bat 'mvn -f ZuulApiGateway/pom.xml clean package'
+			}
+		}
+		stage('Build Docker Image')
+		{
+			steps
+			{
+				echo 'sudo docker build -t myFirstProject ' 
+			}
+		}
+		stage('Run Image')
+		{
+			steps
+			{
+				echo 'Running Docker Image created above'
+			}
+		}
+	}
+}
