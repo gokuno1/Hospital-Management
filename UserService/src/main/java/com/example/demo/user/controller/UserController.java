@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
+import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
 import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.utils.ResponseUtils;
@@ -83,4 +84,21 @@ public class UserController {
 		return resp;
 	}
 	
+	@PostMapping(value="/addNewDoctor")
+	public ResponseEntity<String> addNewDoctor(@RequestBody DoctorInfoVO doctor)
+	{
+		ResponseEntity<String> resp = null;
+		String res = service.addNewDoctor(doctor);
+		if(res!=null)
+		{
+			resp=ResponseUtils.getBadRequestResponse(res);
+			return resp;
+		}
+		else
+		{
+			resp=ResponseUtils.getOKResponse(res);
+			return resp;
+		}
+		
+	}
 }

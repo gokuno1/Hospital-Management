@@ -1,9 +1,6 @@
 package com.example.demo.user.service;
 
 
-import java.util.Collection;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,9 +9,15 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.user.model.Department;
+import com.example.demo.user.model.DepartmentDetails;
+import com.example.demo.user.model.DoctorInfo;
 import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
+import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
+import com.example.demo.user.repository.DepartmentDetailsRepository;
+import com.example.demo.user.repository.DoctorRepository;
 import com.example.demo.user.repository.UserRepository;
 import com.example.demo.user.utils.BasicEncryption;
 
@@ -29,6 +32,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private DepartmentDetailsRepository departmentDetailsRepository;
 	
 	//@Autowired
 //	private SessionRepository sessionRepository;
@@ -107,6 +116,37 @@ public class UserServiceImpl implements UserService {
 		UserInfo userProfile = userRepository.findByEmailId(emailId);
 		
 		return userProfile;
+	}
+
+	@Override
+	public String addNewDoctor(DoctorInfoVO doctorinfo) {
+		// TODO Auto-generated method stub
+		DoctorInfo doctor = doctorRepository.findByEmail(doctorinfo.getEmailId());
+		if(doctor!=null)
+		{
+			return "Email Id already present.!!!!";
+		}
+		else
+		{
+			DoctorInfo adduser = new DoctorInfo();
+			adduser.setAddress(doctorinfo.getAddress());
+			adduser.setBirthDate(doctorinfo.getBirthDate());
+			adduser.setChargePerVisit(doctorinfo.getChargePerVisit());
+			adduser.setDoctorName(doctorinfo.getDoctorName());
+			adduser.setEmailId(doctorinfo.getEmailId());
+			adduser.setGender(doctorinfo.getGender());
+			adduser.setMobileNo(doctorinfo.getMobileNo());
+			adduser.setPassword(null);
+			adduser.setSpecialization(doctorinfo.getSpecialization());
+			adduser.setWorkExperience(doctorinfo.getWorkExperience());
+			doctorRepository.save(adduser);
+			Department dept = new Department();
+			DepartmentDetails details = departmentDetailsRepository.findByName(doctorinfo.getDeptName());
+			dept.setDeptId(details.getDeptId());
+			dept.setDoctorId(adduser.getDoctorId());
+			
+			return "User added Successfully";
+		}
 	}
 
 	

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
+import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
 
 public interface UserService {
@@ -13,6 +14,6 @@ public interface UserService {
 	public String addNewUser(UserInfoVO userinfo);
 	public UserInfo viewProfile(String emailId);
 	public String forgotPassword(String emailId, String password);
-	
+	public String addNewDoctor(DoctorInfoVO doctorinfo);
 	
 }

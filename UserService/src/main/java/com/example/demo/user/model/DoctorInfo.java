@@ -16,20 +16,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "USER_DETAILS")
+@Table(name = "DOCTOR_DETAILS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserInfo {
-
+public class DoctorInfo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "USER_ID")
-	private int patientId;
+	@Column(name = "DOCTOR_ID")
+	private int doctorId;
 	
-	@Column(name = "PATIENT_NAME")
-	private String patientName;
+	@Column(name = "DOCTOR_NAME")
+	private String doctorName;
 	
 	@Column(name = "MOBILE_NO")
 	private String mobileNo;
@@ -49,23 +49,32 @@ public class UserInfo {
 	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "TYPE")
-	private String userType;
+	@Column(name = "SPECIALIZATION")
+	private String specialization;
 	
-	public int getPatientId() {
-		return patientId;
+	@Column(name = "CHARGES_PER_VISIT")
+	private double chargePerVisit;
+	
+	@Column(name = "WORK_EXPERIENCE")
+	private int workExperience;
+	
+	@OneToOne(mappedBy = "doctorId")
+	private Department userId;
+
+	public int getDoctorId() {
+		return doctorId;
 	}
 
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
 
-	public String getPatientName() {
-		return patientName;
+	public String getDoctorName() {
+		return doctorName;
 	}
 
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 
 	public String getMobileNo() {
@@ -116,16 +125,38 @@ public class UserInfo {
 		this.password = password;
 	}
 
-	public String getUserType() {
-		return userType;
+	public String getSpecialization() {
+		return specialization;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
+	}
+
+	public double getChargePerVisit() {
+		return chargePerVisit;
+	}
+
+	public void setChargePerVisit(double chargePerVisit) {
+		this.chargePerVisit = chargePerVisit;
+	}
+
+	public int getWorkExperience() {
+		return workExperience;
+	}
+
+	public void setWorkExperience(int workExperience) {
+		this.workExperience = workExperience;
+	}
+
+	public Department getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Department userId) {
+		this.userId = userId;
 	}
 	
 	
-	
-	
-		
+
 }
