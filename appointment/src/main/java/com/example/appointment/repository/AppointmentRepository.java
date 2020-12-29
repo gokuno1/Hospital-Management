@@ -26,7 +26,7 @@ public interface AppointmentRepository extends JpaRepository<AppointmentModel, I
 	@Query(value = "select * from appointment_management.appointmentdetails where doctor_email=?1 and appointment_status='PENDING'", nativeQuery = true)
 	public List<AppointmentModel> getAllPendingAppointments(String doctorEmail);
 	
-	@Query(value = "select * from appointment_management.appointmentdetails where doctor_email=?1 and appointment_status='ACCEPTED' and date=CURDATE()", nativeQuery = true)
+	@Query(value = "select * from appointment_management.appointmentdetails where doctor_email=?1 and date=CURDATE()", nativeQuery = true)
 	public List<AppointmentModel> getAllTodaysAppointments(String doctorEmail);
 	
 	@Query(value = "select * from appointment_management.appointmentdetails where doctor_email=?1 and patient_email=?2 and appointment_status='COMPLETED'", nativeQuery = true)
