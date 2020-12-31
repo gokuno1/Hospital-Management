@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.admin.intercomm.UserFeignController;
 import com.example.admin.modelVo.DoctorInfoVO;
-import com.example.admin.repository.AdminRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService{
