@@ -1,10 +1,13 @@
 package com.example.demo.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.user.model.DoctorInfo;
 import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.modelVo.DoctorInfoVO;
@@ -100,5 +104,32 @@ public class UserController {
 			return resp;
 		}
 		
+	}
+	
+	@GetMapping(value = "/getAllDoctors")
+	public ResponseEntity<List<DoctorInfo>> getAllDoctors()
+	{
+		ResponseEntity<List<DoctorInfo>> resp = null;
+		List<DoctorInfo> userdetails = service.getAllDoctors();
+		resp = ResponseUtils.getOKResponse(userdetails);
+		return resp;
+	}
+	
+	@GetMapping(value = "/searchDoctor")
+	public ResponseEntity<DoctorInfo> searchDoctor(@RequestBody String emailId)
+	{
+		ResponseEntity<DoctorInfo> resp = null;
+		DoctorInfo userdetails = service.searchDoctorByEmail(emailId);
+		resp = ResponseUtils.getOKResponse(userdetails);
+		return resp;
+	}
+	
+	@DeleteMapping(value = "/deleteDoctor")
+	public ResponseEntity<String> deleteDoctor(@RequestBody String emailId)
+	{
+		ResponseEntity<String> resp = null;
+		String userdetails = service.deleteDoctorByEmail(emailId);
+		resp = ResponseUtils.getOKResponse(userdetails);
+		return resp;
 	}
 }

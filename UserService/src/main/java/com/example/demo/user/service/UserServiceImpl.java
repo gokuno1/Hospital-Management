@@ -1,6 +1,8 @@
 package com.example.demo.user.service;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -147,6 +149,27 @@ public class UserServiceImpl implements UserService {
 			
 			return "User added Successfully";
 		}
+	}
+
+	@Override
+	public List<DoctorInfo> getAllDoctors() {
+		// TODO Auto-generated method stub
+		List<DoctorInfo> getAll = (List<DoctorInfo>) doctorRepository.findAll();
+		return getAll;
+	}
+
+	@Override
+	public DoctorInfo searchDoctorByEmail(String emailId) {
+		// TODO Auto-generated method stub
+		DoctorInfo user = doctorRepository.findByEmail(emailId);
+		return user;
+	}
+
+	@Override
+	public String deleteDoctorByEmail(String emailId) {
+		// TODO Auto-generated method stub
+		doctorRepository.deleteByEmail(emailId);
+		return "User deleted Successfully";
 	}
 
 	
