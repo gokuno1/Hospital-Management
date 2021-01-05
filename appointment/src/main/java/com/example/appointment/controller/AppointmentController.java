@@ -49,9 +49,9 @@ public class AppointmentController {
 	}
 	
 	@GetMapping(value = "/getPreviousAppointmentOfPatient")
-	public List<AppointmentModel> getAllAppointmentBypatient(@RequestHeader String patientEmail, @RequestHeader String doctorEmail)
+	public List<AppointmentModel> getAllAppointmentBypatient(@RequestHeader String patientEmail, @RequestHeader String doctorEmail, @RequestHeader int pageNo)
 	{
-		List<AppointmentModel> list = appointmentService.getPreviousAppointmentsForPatient(doctorEmail, patientEmail);
+		List<AppointmentModel> list = appointmentService.getPreviousAppointmentsForPatient(doctorEmail, patientEmail, pageNo);
 		return list;
 	}
 	

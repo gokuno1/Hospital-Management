@@ -11,7 +11,7 @@ public interface AppointmentService {
 	public AppointmentModel updateAppointment(int appointmentId, String status, String prescription, Boolean followUp);
 	public List<AppointmentModel> getPendingAppointments(String doctorEmail);
 	public List<AppointmentModel> getTodaysAppointment(String doctorEmail);
-	public List<AppointmentModel> getPreviousAppointmentsForPatient(String doctorEmail, String patientEmail);
+	public List<AppointmentModel> getPreviousAppointmentsForPatient(String doctorEmail, String patientEmail, int pageNo);
 	
 }
 

@@ -1,8 +1,12 @@
 package com.example.appointment.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.appointment.intercomm.UserFeignController;
@@ -71,10 +75,13 @@ public class AppointmentServiceImpl implements AppointmentService{
 	}
 
 	@Override
-	public List<AppointmentModel> getPreviousAppointmentsForPatient(String doctorEmail, String patientEmail) {
+	public List<AppointmentModel> getPreviousAppointmentsForPatient(String doctorEmail, String patientEmail, int pageNo) {
 		// TODO Auto-generated method stub
-		List<AppointmentModel> appointments = appointmentRepository.getAllPreviousAppointments(doctorEmail, patientEmail);
-		return appointments;
+		
+		Pageable page = PageRequest.of(pageNo, 2);
+		Page<AppointmentModel> appointments = appointmentRepository.getAllPreviousAppointments(doctorEmail, patientEmail, page);
+		List<AppointmentModel> list = appointments!=null?appointments.getContent():new ArrayList<AppointmentModel>();
+		return list;
 	}
 
 	
