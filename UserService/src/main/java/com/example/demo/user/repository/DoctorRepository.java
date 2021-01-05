@@ -15,4 +15,7 @@ public interface DoctorRepository extends CrudRepository<DoctorInfo, Integer> {
 	@Query(value = "SELECT * FROM DOCTOR_DETAILS WHERE MOBILE_NO=?1", nativeQuery = true)
 	public DoctorInfo findByMobileNo(String mobileNo);
 	
+	@Query(value = "DELETE FROM DOCTOR_DETAILS WHERE EMAIL_ID=?1", nativeQuery = true)
+	public void deleteByEmail(String emailId);
+	
 }

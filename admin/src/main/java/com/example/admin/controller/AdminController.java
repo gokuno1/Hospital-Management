@@ -1,8 +1,12 @@
 package com.example.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +29,24 @@ public class AdminController {
 	}
 	
 	@DeleteMapping(value = "/deleteDoctor")
-	public void deleteDoctor(@RequestHeader String contactNo)
+	public void deleteDoctor(@RequestHeader String emailId)
 	{
-		adminService.removeDoctor(contactNo);
+		adminService.removeDoctor(emailId);
+	}
+	
+	@GetMapping(value = "/searchDoctor")
+	public DoctorInfoVO searchDoctor(@RequestBody String emailId)
+	{
+	//	ResponseEntity<DoctorInfo> resp = null;
+		DoctorInfoVO userdetails = adminService.searchDoctorByEmail(emailId);
+	//	resp = ResponseUtils.getOKResponse(userdetails);
+		return userdetails;
 	}
 
+	@GetMapping(value = "/getAllDoctor")
+	public List<DoctorInfoVO> getAllDoctor()
+	{
+		List<DoctorInfoVO> getAll = adminService.getAllDoctor();
+		return getAll;
+	}
 }
