@@ -3,6 +3,8 @@ package com.example.appointment.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.appointment.model.AppointmentModel;
 import com.example.appointment.model.AppointmentModelVo;
+import com.example.appointment.model.vo.PrescriptionVO;
+import com.example.appointment.model.vo.UserPrescriptionDetails;
 import com.example.appointment.service.AppointmentServiceImpl;
 
 @RestController
@@ -60,5 +64,13 @@ public class AppointmentController {
 	{
 		List<AppointmentModel> list = appointmentService.getPendingAppointments(doctorName);
 		return list;
+	}
+	
+	@PostMapping(value = "/downloadPrescription")
+	public String getPrescriptionPdf(@RequestBody UserPrescriptionDetails details, HttpServletResponse response) {
+		
+		String data = appointmentService.getPrescriptionPdf(details, response);
+		return data;
+		
 	}
 }
