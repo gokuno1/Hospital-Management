@@ -13,7 +13,6 @@ public class DoctorInfoVO {
 	private String address;
 	private Date birthDate;
 	private String gender;
-	private String password;
 	private String specialization;
 	private double chargePerVisit;
 	private int workExperience;	
@@ -61,12 +60,6 @@ public class DoctorInfoVO {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getSpecialization() {
 		return specialization;

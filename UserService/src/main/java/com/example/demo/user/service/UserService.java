@@ -15,11 +15,11 @@ public interface UserService {
 
 	public SpringSession authenticateUser(UserInfoVO user,HttpServletRequest request,HttpServletResponse httpServletResponse);
 	public String addNewUser(UserInfoVO userinfo);
-	public UserInfo viewProfile(String emailId);
+	public UserInfoVO viewProfile(String emailId);
 	public String forgotPassword(String emailId, String password);
 	public String addNewDoctor(DoctorInfoVO doctorinfo);
 	public List<DoctorInfo> getAllDoctors();
-	public DoctorInfo searchDoctorByEmail(String emailId);
+	public DoctorInfoVO searchDoctorByEmail(String emailId);
 	public String deleteDoctorByEmail(String emailId);
 	
 }

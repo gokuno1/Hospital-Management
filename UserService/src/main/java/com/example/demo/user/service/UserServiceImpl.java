@@ -113,11 +113,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserInfo viewProfile(String emailId) {
+	public UserInfoVO viewProfile(String emailId) {
 		// TODO Auto-generated method stub
+		UserInfoVO userDetails = new UserInfoVO();
 		UserInfo userProfile = userRepository.findByEmailId(emailId);
-		
-		return userProfile;
+		userDetails.setAddress(userProfile.getAddress());
+		userDetails.setBirthDate(userProfile.getBirthDate());
+		userDetails.setEmailId(userProfile.getEmailId());
+		userDetails.setGender(userProfile.getGender());
+		userDetails.setMobileNo(userProfile.getMobileNo());
+		userDetails.setPassword(userProfile.getPassword());
+		userDetails.setPatientId(userProfile.getPatientId());
+		userDetails.setPatientName(userProfile.getPatientName());
+		userDetails.setUserType(userProfile.getUserType());
+		return userDetails;
 	}
 
 	@Override
@@ -159,10 +168,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public DoctorInfo searchDoctorByEmail(String emailId) {
+	public DoctorInfoVO searchDoctorByEmail(String emailId) {
 		// TODO Auto-generated method stub
+		DoctorInfoVO doctorDetails = new DoctorInfoVO();
 		DoctorInfo user = doctorRepository.findByEmail(emailId);
-		return user;
+		doctorDetails.setAddress(user.getAddress());
+		doctorDetails.setBirthDate(user.getBirthDate());
+		doctorDetails.setChargePerVisit(user.getChargePerVisit());
+		doctorDetails.setDeptName("waiting to develop logic");
+		doctorDetails.setDoctorId(user.getDoctorId());
+		doctorDetails.setDoctorName(user.getDoctorName());
+		doctorDetails.setEmailId(emailId);
+		doctorDetails.setGender(user.getGender());
+		doctorDetails.setMobileNo(user.getMobileNo());
+		doctorDetails.setSpecialization(user.getSpecialization());
+		doctorDetails.setUserId(user.getUserId());
+		doctorDetails.setWorkExperience(user.getWorkExperience());
+		return doctorDetails;
 	}
 
 	@Override

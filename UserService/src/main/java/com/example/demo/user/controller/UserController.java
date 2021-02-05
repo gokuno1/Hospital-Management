@@ -71,10 +71,10 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/getProfileDetails")
-	public ResponseEntity<UserInfo> getProfileDetails(@RequestParam String emailId)
+	public ResponseEntity<UserInfoVO> getProfileDetails(@RequestParam String emailId)
 	{
-		ResponseEntity<UserInfo> resp = null;
-		UserInfo userdetails = service.viewProfile(emailId);
+		ResponseEntity<UserInfoVO> resp = null;
+		UserInfoVO userdetails = service.viewProfile(emailId);
 		resp = ResponseUtils.getOKResponse(userdetails);
 		return resp;
 	}
@@ -116,10 +116,10 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/searchDoctor")
-	public ResponseEntity<DoctorInfo> searchDoctor(@RequestBody String emailId)
+	public ResponseEntity<DoctorInfoVO> searchDoctor(@RequestBody String emailId)
 	{
-		ResponseEntity<DoctorInfo> resp = null;
-		DoctorInfo userdetails = service.searchDoctorByEmail(emailId);
+		ResponseEntity<DoctorInfoVO> resp = null;
+		DoctorInfoVO userdetails = service.searchDoctorByEmail(emailId);
 		resp = ResponseUtils.getOKResponse(userdetails);
 		return resp;
 	}
