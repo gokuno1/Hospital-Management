@@ -2,6 +2,7 @@ package com.example.appointment.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.example.appointment.intercomm.UserFeignController;
 import com.example.appointment.model.AppointmentModel;
 import com.example.appointment.model.AppointmentModelVo;
+import com.example.appointment.model.vo.DashboardDetailsVO;
 import com.example.appointment.model.vo.PrescriptionVO;
 import com.example.appointment.model.vo.UserPrescriptionDetails;
 import com.example.appointment.repository.AppointmentRepository;
@@ -36,6 +38,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.xml.bind.v2.schemagen.xmlschema.Appinfo;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
@@ -50,13 +53,16 @@ public class AppointmentServiceImpl implements AppointmentService{
 	public AppointmentModel bookAppointment(AppointmentModelVo bookingDetails) {
 		// TODO Auto-generated method stub
 		AppointmentModel details = new AppointmentModel();
+		long millis=System.currentTimeMillis();  
+        Date bookingDate=new Date(millis);  
 		details.setAppointmentDate(bookingDetails.getAppointmentDate());
 		details.setDisease(bookingDetails.getDisease());
 		details.setDoctorEmail(bookingDetails.getDoctorEmail());
 		details.setFollowUp(false);
 		details.setPatientEmail(bookingDetails.getPatientEmail());
 		details.setPrescription(null);
-		details.setStatus("PENDING");
+		details.setStatus("APPROVAL PENDING");
+		details.setBookingDate(bookingDate);
 		appointmentRepository.save(details);
 		return details;
 	}
@@ -233,6 +239,19 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 			return "document is downloaded successfully";
 			
+	}
+
+	@Override
+	public DashboardDetailsVO appointmentDetails(String doctorEmail) {
+		// TODO Auto-generated method stub
+		DashboardDetailsVO appointmentoverview = new DashboardDetailsVO();
+		int pendingCount = appointmentRepository.getAllPendingAppointmentsCount(doctorEmail);
+		int todaysCount = appointmentRepository.getAllTodaysAppointmentsCount(doctorEmail);
+		int weekAppointment = 0;
+		appointmentoverview.setPendingAppointments(pendingCount);
+		appointmentoverview.setTodayAppointment(todaysCount);
+		appointmentoverview.setAppointmentForWeek(weekAppointment);
+		return appointmentoverview;
 	}
 
 }

@@ -6,6 +6,7 @@ public class AppointmentModelVo {
 	
 	private String patientEmail;
 	private Date appointmentDate;
+	private Date bookingDate;
     private String doctorEmail;
 	private String disease;
 	private String prescription;
@@ -46,6 +47,12 @@ public class AppointmentModelVo {
 	}
 	public void setAppointmentDate(Date appointmentDate) {
 		this.appointmentDate = appointmentDate;
+	}
+	public Date getBookingDate() {
+		return bookingDate;
+	}
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
 	}
 	
 	

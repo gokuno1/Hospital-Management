@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.appointment.model.AppointmentModel;
 import com.example.appointment.model.AppointmentModelVo;
+import com.example.appointment.model.vo.DashboardDetailsVO;
 import com.example.appointment.model.vo.PrescriptionVO;
 import com.example.appointment.model.vo.UserPrescriptionDetails;
 import com.example.appointment.service.AppointmentServiceImpl;
@@ -72,5 +73,12 @@ public class AppointmentController {
 		String data = appointmentService.getPrescriptionPdf(details, response);
 		return data;
 		
+	}
+	
+	@GetMapping(value = "/getAppointmentOverview")
+	public DashboardDetailsVO getAppointmentOverview(@RequestHeader String doctorEmail)
+	{
+		DashboardDetailsVO details = appointmentService.appointmentDetails(doctorEmail);
+		return details;
 	}
 }

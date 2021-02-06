@@ -24,8 +24,11 @@ public class AppointmentModel {
 	@Column(name = "patient_email")
 	private String patientEmail;
 	
-	@Column(name = "date")
+	@Column(name = "appointment_date")
 	private Date appointmentDate;
+	
+	@Column(name = "booking_date")
+	private Date bookingDate;
 	
 	@Column(name = "appointment_status")
 	private String status;
@@ -91,6 +94,12 @@ public class AppointmentModel {
 	}
 	public void setAppointmentDate(Date appointmentDate) {
 		this.appointmentDate = appointmentDate;
+	}
+	public Date getBookingDate() {
+		return bookingDate;
+	}
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
 	}
 	
 	

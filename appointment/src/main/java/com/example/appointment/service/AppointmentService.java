@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.appointment.model.AppointmentModel;
 import com.example.appointment.model.AppointmentModelVo;
+import com.example.appointment.model.vo.DashboardDetailsVO;
 import com.example.appointment.model.vo.PrescriptionVO;
 import com.example.appointment.model.vo.UserPrescriptionDetails;
 
@@ -17,6 +18,7 @@ public interface AppointmentService {
 	public List<AppointmentModel> getTodaysAppointment(String doctorEmail);
 	public List<AppointmentModel> getPreviousAppointmentsForPatient(String doctorEmail, String patientEmail, int pageNo);
 	public String getPrescriptionPdf(UserPrescriptionDetails details, HttpServletResponse response);
+	public DashboardDetailsVO appointmentDetails(String doctorEmail);
 	
 }
 

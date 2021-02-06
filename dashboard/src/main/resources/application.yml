@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: dashboard-service   
+server:
+  port: 8700
+  error:
+    whitelabel:
+      enabled: false
