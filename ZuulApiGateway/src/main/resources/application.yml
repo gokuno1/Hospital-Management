@@ -1,6 +1,40 @@
 spring:
   application:
     name: zuul-gateway-service
-   
+  datasource:
+      url: jdbc:mysql://127.0.0.1:3306/appointment_patient
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
+zuul:  prefix: /web
+  semaphore:    max-semaphores: 2
+  host:    max-per-route-connections: 10
+  routes:    user-service:
+      path: /users/**
+      serviceId: user-service
+      stripPrefix: false
+      sensitiveHeaders: null
+    admin-service:
+      path: /admin/**
+      serviceId: admin-service
+      stripPrefix: false
+      sensitiveHeaders: null
+    appointment-service:
+      path: /appointment/**
+      serviceId: appointment-service
+      stripPrefix: false
+      sensitiveHeaders: null
+    dashboard-service:
+      path: /dashboard/**
+      serviceId: dashboard-service
+      stripPrefix: false
+      sensitiveHeaders: null
 server:
-  port: 8765
+  port: 8765  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+websession:
+  timeout: 1800
