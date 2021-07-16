@@ -1,15 +1,22 @@
 package com.example.demo.user.service;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.demo.user.model.Department;
 import com.example.demo.user.model.DepartmentDetails;
@@ -17,7 +24,10 @@ import com.example.demo.user.model.DoctorInfo;
 import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.modelVo.DoctorInfoVO;
+import com.example.demo.user.modelVo.MyUserDetails;
+import com.example.demo.user.modelVo.UserDto;
 import com.example.demo.user.modelVo.UserInfoVO;
+import com.example.demo.user.modelVo.UserLoginResponse;
 import com.example.demo.user.repository.DepartmentDetailsRepository;
 import com.example.demo.user.repository.DoctorRepository;
 import com.example.demo.user.repository.UserRepository;
@@ -68,22 +78,49 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public SpringSession authenticateUser(UserInfoVO user,HttpServletRequest request,HttpServletResponse httpServletResponse) {
-		// TODO Auto-generated method stub
-	//	SpringSessionVO sessionmanagement = new SpringSessionVO();
-		SpringSession session = new SpringSession();
+	public UserLoginResponse authenticateUser(UserInfoVO user,HttpServletRequest request,HttpServletResponse httpServletResponse) {
+		
+		UserLoginResponse response = new UserLoginResponse();
+		boolean login = false;
 		UserInfo authUser = userRepository.findByEmailId(user.getEmailId());
-		if(authUser.getEmailId().equals(user.getEmailId()) && user.getPassword().equals(encrypt.decryptCipherText(authUser.getPassword())))
-		{
+		if(authUser!=null) {
+			login = validateUser(authUser, user);
+		}
+		if(login) {
 			String sessionId = request.getSession().getId();
-			System.out.println(sessionId);
-			//session.setPrincipalName(user.getEmailId());
-			//sessionRepository.save(session);
-			return session;
+			List<GrantedAuthority> authorities = new ArrayList<>();
+			authorities.add(new SimpleGrantedAuthority(user.getUserType()));
+			MyUserDetails myUserDetails = new MyUserDetails(new UserDto(user.getMobileNo(), null), authorities);
+			Collection<? extends Session> usersSessions = this.sessions
+					.findByPrincipalName(myUserDetails.getUsername()).values();
+			if (!usersSessions.isEmpty()) {
+				usersSessions.forEach(sessionIda -> {
+					// System.out.println("Auth user :" + sessionIda.getId());
+					this.sessions.deleteById(sessionIda.getId());
+				});
+			}
+			SecurityContextHolder.getContext().setAuthentication(
+					new UsernamePasswordAuthenticationToken(myUserDetails, null, authorities));
+			
+			response.setMobileNo(authUser.getMobileNo());
+			response.setEmailId(authUser.getEmailId());
+			response.setUserType(authUser.getUserType());
+			response.setBirthDate(authUser.getBirthDate());
+			response.setPatientName(authUser.getPatientName());
+			response.setSessionId(sessionId);
+			response.setAddress(authUser.getAddress());
 		}
 		
-		return session;
-		
+		return response;
+	}
+
+	private boolean validateUser(UserInfo authUser, UserInfoVO user) {
+		String inputPassword = encrypt.decryptCipherText(user.getPassword());
+		String userPassword = encrypt.decryptCipherText(authUser.getPassword());
+		if(null!=inputPassword && inputPassword.equals(userPassword)) {
+			return true;
+		}
+		return false;		
 	}
 
 	@Override

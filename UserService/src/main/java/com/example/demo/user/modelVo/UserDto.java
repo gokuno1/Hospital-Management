@@ -1,28 +1,29 @@
-package com.example.ZuulApiGateway.authtoken;
+package com.example.demo.user.modelVo;
 
 import java.io.Serializable;
 import java.security.Principal;
 
-public class UserDto implements Principal,Serializable{
+public class UserDto  implements Principal, Serializable {
+
+//	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 9057092956206429816L;
 
-
-	public UserDto(String userName,String password){
-		this.username=userName;
-		this.Password=password;
+	public UserDto(String username, String password) {
+		this.username = username;
+		this.Password = password;
 	}
+
 	private String username;
 	private String Password;
-	
-	
+
 	public String getPassword() {
 		return Password;
 	}
- 
+
 	public String getUsername() {
 		return username;
 	}
@@ -37,6 +38,7 @@ public class UserDto implements Principal,Serializable{
 
 	@Override
 	public String getName() {
+		// TODO Auto-generated method stub
 		return this.getUsername();
 	}
 

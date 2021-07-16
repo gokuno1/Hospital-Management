@@ -21,23 +21,22 @@ import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
+import com.example.demo.user.modelVo.UserLoginResponse;
 import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.utils.ResponseUtils;
 
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	UserServiceImpl service;
 	
 	@PostMapping(value="/authenticateUser")
-	public ResponseEntity<SpringSession> authenticateUser(@RequestBody UserInfoVO user, HttpServletRequest request, HttpServletResponse response)
+	public ResponseEntity<UserLoginResponse> authenticateUser(@RequestBody UserInfoVO user, HttpServletRequest request, HttpServletResponse response)
 	{
-		ResponseEntity<SpringSession> resp = null;
-		SpringSession res = service.authenticateUser(user, request, response);
-		//return res;
-		
+		ResponseEntity<UserLoginResponse> resp = null;
+		UserLoginResponse res = service.authenticateUser(user, request, response);	
 		  if(res!=null)
 		  { 
 			  resp=ResponseUtils.getOKResponse(res); 

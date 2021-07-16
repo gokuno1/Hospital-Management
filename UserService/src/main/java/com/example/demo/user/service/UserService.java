@@ -10,10 +10,11 @@ import com.example.demo.user.model.SpringSession;
 import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
+import com.example.demo.user.modelVo.UserLoginResponse;
 
 public interface UserService {
 
-	public SpringSession authenticateUser(UserInfoVO user,HttpServletRequest request,HttpServletResponse httpServletResponse);
+	public UserLoginResponse authenticateUser(UserInfoVO user,HttpServletRequest request,HttpServletResponse httpServletResponse);
 	public String addNewUser(UserInfoVO userinfo);
 	public UserInfoVO viewProfile(String emailId);
 	public String forgotPassword(String emailId, String password);
