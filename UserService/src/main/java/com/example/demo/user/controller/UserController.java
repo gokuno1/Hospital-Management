@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.user.model.DoctorInfo;
-import com.example.demo.user.model.SpringSession;
-import com.example.demo.user.model.UserInfo;
 import com.example.demo.user.modelVo.DoctorInfoVO;
 import com.example.demo.user.modelVo.UserInfoVO;
 import com.example.demo.user.modelVo.UserLoginResponse;
