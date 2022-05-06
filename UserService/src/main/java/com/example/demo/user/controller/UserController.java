@@ -24,13 +24,13 @@ import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.utils.ResponseUtils;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	UserServiceImpl service;
 	
-	@PostMapping(value="/authenticateUser")
+	@PostMapping(value="/authenticate")
 	public ResponseEntity<UserLoginResponse> authenticateUser(@RequestBody UserInfoVO user, HttpServletRequest request, HttpServletResponse response)
 	{
 		ResponseEntity<UserLoginResponse> resp = null;
@@ -49,7 +49,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping(value="/addNewUser")
+	@PostMapping(value="/add-user")
 	public ResponseEntity<String> addNewUser(@RequestBody UserInfoVO user)
 	{
 		ResponseEntity<String> resp = null;
@@ -67,7 +67,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping(value = "/getProfileDetails")
+	@GetMapping(value = "/profile-details")
 	public ResponseEntity<UserInfoVO> getProfileDetails(@RequestParam String emailId)
 	{
 		ResponseEntity<UserInfoVO> resp = null;
@@ -76,7 +76,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@PostMapping(value = "/forgotPassword")
+	@PostMapping(value = "/forgot-password")
 	public ResponseEntity<String> forgotPassword(@RequestHeader String emailId, @RequestHeader String password)
 	{
 		ResponseEntity<String> resp = null;
@@ -85,7 +85,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@PostMapping(value="/addNewDoctor")
+	@PostMapping(value="/add-doctor")
 	public ResponseEntity<String> addNewDoctor(@RequestBody DoctorInfoVO doctor)
 	{
 		ResponseEntity<String> resp = null;
@@ -103,7 +103,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping(value = "/getAllDoctors")
+	@GetMapping(value = "/doctors")
 	public ResponseEntity<List<DoctorInfo>> getAllDoctors()
 	{
 		ResponseEntity<List<DoctorInfo>> resp = null;
@@ -112,7 +112,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@GetMapping(value = "/searchDoctor")
+	@GetMapping(value = "/search-doctor")
 	public ResponseEntity<DoctorInfoVO> searchDoctor(@RequestBody String emailId)
 	{
 		ResponseEntity<DoctorInfoVO> resp = null;
@@ -121,7 +121,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@DeleteMapping(value = "/deleteDoctor")
+	@DeleteMapping(value = "/doctor")
 	public ResponseEntity<String> deleteDoctor(@RequestBody String emailId)
 	{
 		ResponseEntity<String> resp = null;

@@ -21,32 +21,27 @@ public class AdminController {
 	@Autowired
 	AdminServiceImpl adminService;
 	
-	@PostMapping(value = "/addDoctor")
+	@PostMapping(value = "/doctor")
 	public String addDoctor(DoctorInfoVO model)
 	{
-		String admin = adminService.addNewDoctor(model);
-		return admin;
+		return adminService.addNewDoctor(model);
 	}
 	
-	@DeleteMapping(value = "/deleteDoctor")
+	@DeleteMapping(value = "/doctor")
 	public void deleteDoctor(@RequestHeader String emailId)
 	{
 		adminService.removeDoctor(emailId);
 	}
 	
-	@GetMapping(value = "/searchDoctor")
+	@GetMapping(value = "/search-doctor")
 	public DoctorInfoVO searchDoctor(@RequestBody String emailId)
 	{
-	//	ResponseEntity<DoctorInfo> resp = null;
-		DoctorInfoVO userdetails = adminService.searchDoctorByEmail(emailId);
-	//	resp = ResponseUtils.getOKResponse(userdetails);
-		return userdetails;
+		return adminService.searchDoctorByEmail(emailId);
 	}
 
-	@GetMapping(value = "/getAllDoctor")
+	@GetMapping(value = "/doctors")
 	public List<DoctorInfoVO> getAllDoctor()
 	{
-		List<DoctorInfoVO> getAll = adminService.getAllDoctor();
-		return getAll;
+		return adminService.getAllDoctor();
 	}
 }

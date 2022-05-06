@@ -17,11 +17,10 @@ public class DashboardController {
 	@Autowired
 	private DashboardServiceImpl dashboardServiceImpl; 
 	
-	@GetMapping(value = "/getAppointmentOverview")
+	@GetMapping(value = "/appointment/overview")
 	public DashboardDetailsVO getAppointmentOverview(@RequestHeader DashboardData info)
 	{
-		DashboardDetailsVO dashboard = dashboardServiceImpl.appointmentOverview(info);
-		return dashboard;
+		return dashboardServiceImpl.appointmentOverview(info);
 	}
 
 }
