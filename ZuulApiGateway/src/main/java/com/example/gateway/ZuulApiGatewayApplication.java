@@ -1,4 +1,4 @@
-package com.example.ZuulApiGateway;
+package com.example.gateway;
 
 
 import java.util.Arrays;
