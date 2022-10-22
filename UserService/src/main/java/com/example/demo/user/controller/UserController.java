@@ -49,7 +49,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping(value="/add-user")
+	@PostMapping(value="/user")
 	public ResponseEntity<String> addNewUser(@RequestBody UserInfoVO user)
 	{
 		ResponseEntity<String> resp = null;
@@ -67,7 +67,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping(value = "/profile-details")
+	@GetMapping(value = "/user")
 	public ResponseEntity<UserInfoVO> getProfileDetails(@RequestParam String emailId)
 	{
 		ResponseEntity<UserInfoVO> resp = null;
@@ -85,7 +85,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@PostMapping(value="/add-doctor")
+	@PostMapping(value="/doctor")
 	public ResponseEntity<String> addNewDoctor(@RequestBody DoctorInfoVO doctor)
 	{
 		ResponseEntity<String> resp = null;
@@ -112,7 +112,7 @@ public class UserController {
 		return resp;
 	}
 	
-	@GetMapping(value = "/search-doctor")
+	@GetMapping(value = "/doctor")
 	public ResponseEntity<DoctorInfoVO> searchDoctor(@RequestBody String emailId)
 	{
 		ResponseEntity<DoctorInfoVO> resp = null;
