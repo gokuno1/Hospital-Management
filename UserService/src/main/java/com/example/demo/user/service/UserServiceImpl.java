@@ -95,7 +95,6 @@ public class UserServiceImpl implements UserService {
 					.findByPrincipalName(myUserDetails.getUsername()).values();
 			if (!usersSessions.isEmpty()) {
 				usersSessions.forEach(sessionIda -> {
-					// System.out.println("Auth user :" + sessionIda.getId());
 					this.sessions.deleteById(sessionIda.getId());
 				});
 			}
